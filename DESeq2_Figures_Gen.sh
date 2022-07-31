@@ -44,7 +44,7 @@ mat <- assay(rld)[topgenes,]
 mat <- mat - rowMeans(mat)
 rownames(mat) <- topgenes_symbols$Symbol
 df <- as.data.frame(colData(dds)[,c("condition")])
-colnames(df) <- "Condition“
+colnames(df) <- "Condition"
 row.names(df) <- sampleTable$sampleName
 pheatmap(mat, annotation_col=df, cluster_rows=TRUE, show_rownames=TRUE, cluster_cols=TRUE)
 
