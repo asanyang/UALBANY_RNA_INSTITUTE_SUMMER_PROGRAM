@@ -41,12 +41,13 @@ rld <- rlog(dds, blind=FALSE)
 topgenes <- head(rownames(results_Control_DM_PValue),20)
 topgenes_symbols <- DM1_Control[topgenes,]
 mat <- assay(rld)[topgenes,]
+
 mat <- mat - rowMeans(mat)
 rownames(mat) <- topgenes_symbols$Symbol
 df <- as.data.frame(colData(dds)[,c("condition")])
 colnames(df) <- "Condition"
 row.names(df) <- sampleTable$sampleName
-pheatmap(mat, annotation_col=df, cluster_rows=TRUE, show_rownames=TRUE, cluster_cols=TRUE)
+pheatmap(mat, annotation_col=df, cluster_rows=TRUE, show_rownames=TRUE, cluster_cols=FALSE)
 
 #Question 4: How different is your specific gene of interest between control and DM1? 
 #Plotting normalized counts can plot specific genes of interest individually to show changes between control and DM1
