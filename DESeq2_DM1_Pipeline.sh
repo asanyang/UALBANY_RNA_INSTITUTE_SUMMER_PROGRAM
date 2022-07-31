@@ -19,19 +19,23 @@ counts.files <- lapply(file.list, read.table, skip = 4)
 
 #Select your counts column
 counts <- as.data.frame( sapply( counts.files, function(x) x[ ,2] ) )
+View(counts)
 
 #Setting Column and Row Names for your Data Frame
 colnames(counts) <- file.list
 row.names(counts) <- counts.files[[1]]$V1
+View(counts)
 
 #Step 3: Conditions and Metadata
 
 #Setting Conditions
 condition <- c(rep("Control",5), rep("DM1",5))
-condition <- c(“Control”,”DM1”,”Control”... etc.) for all 10 samples in order to orient them correctly
+
+#Above code may not work sometimes, instaed use condition <- c(“Control”,”DM1”,”Control”... etc.) for all 10 samples in order to orient them correctly
 
 #Meta Data Matrix Formation
 sampleTable <- data.frame(sampleName = file.list, condition = condition)
+View(sampleTable)
 
 #DESeq Dataset Formation
 dds <- DESeqDataSetFromMatrix(countData = counts, colData = sampleTable, design = ~ condition)
@@ -68,12 +72,4 @@ rownames(DM1_Control) <- DM1_Control$X
 #This code can be used to write a new file with the GeneIDs added
 write.csv(DM1_Control, file = “Control_DM_DE_GeneIDs.csv”)
 
-
-
-
-
-
-
-
-
-
+#Done
