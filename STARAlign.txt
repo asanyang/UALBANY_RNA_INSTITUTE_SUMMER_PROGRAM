@@ -1,0 +1,17 @@
+!/bin/bash
+SBATCH --job-name=STAR_Align      # Job name
+SBATCH --mail-type=END,FAIL         # Mail events (NONE, BEGIN, END, FAIL, ALL)
+SBATCH --ntasks=1                   # Run a single task
+SBATCH --mem=50gb                     # Job memory request
+SBATCH --cpus-per-task=5            # Number of CPU cores per task
+SBATCH --time=36:00:00              # Time limit hrs:min:sec
+SBATCH --output=STARALIGN.log     # Standard output and error log
+
+source ~/.bashrc
+for i in $(ls /network/rit/lab/bioinformaticslab/Project1/ | grep '.fastq.gz' | sed s/[12].fastq.gz// | sort -u)
+do
+ STAR --genomeDir /network/rit/lab/bioinformaticslab/HumanGenome  --runThreadN 5 --readFilesIn /network/rit/lab/bioinformaticslab/Project1/"$i"1.fastq.gz /network/rit/lab/bioinformaticslab/Project1/"$i"2.fastq.gz --outFileNamePrefix "$i" --outSAMtype BAM SortedByCoordinate --quantMode GeneCounts --readFilesCommand gunzip -c
+
+done
+
+STARAlign.txt (END)
